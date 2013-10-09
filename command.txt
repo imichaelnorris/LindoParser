@@ -1,0 +1,1 @@
+lindoparse.py Labory_i = 10Heiffery_i +42MilkCowy_i +4GrainAcrey_i +14SugarBeatAcrey_i
