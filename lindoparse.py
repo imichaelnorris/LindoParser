@@ -8,15 +8,17 @@ def lhs(line):
     if (not '=' in line):
         return line
     temp = line.split(' ')
-    if '=' in temp:
-        equalsLocation = temp.index('=')
+    for i in EQUALITY:
+        if i in temp:
+            equalsLocation = temp.index(i)
+    #print('equalsLocation {0}'.format(equalsLocation))
     for i in range(1, len(temp)):
         #if the intersection of a string of only numbers
         # and only numbers has length of zero, the string only contains nums
         if not len(set(temp[i]) - set(string.digits+'+'+'-')) == 0:
-            print('true')
+            #print('true')
             if ( (i-1) == equalsLocation):
-                print('eqsignloc')
+                #print('eqsignloc')
                 equalsLocation += 1
                 temp[i], temp[i-1] = temp[i-1], temp[i]
                 if (temp[i-1][0]) == '+':
@@ -26,7 +28,8 @@ def lhs(line):
                 else:
                     temp[i-1] = '-' + temp[i-1]
         else:
-            print('false')
+            pass
+            #print('false')
     if (temp[-1] in ['=', '<', '<=', '>', '>=']):
         temp.append('0')
     return " ".join(temp)
@@ -58,6 +61,7 @@ def getequations(text, parameters):
     tempList = []
     for i in temp:
         tempList.append(expandVariable(i, parameters[:]))
+    #print(tempList)
     output = []
     for i in range(0, len(tempList[0])):
         tempLine = []
