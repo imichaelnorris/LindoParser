@@ -21,9 +21,10 @@ def lhs(line):
                 #print('eqsignloc')
                 equalsLocation += 1
                 temp[i], temp[i-1] = temp[i-1], temp[i]
+                #print("swapped: " + temp[i-1])
                 if (temp[i-1][0]) == '+':
                     temp[i-1] = temp[i-1].replace('+', '-')
-                elif (temp[i][0] == '-'):
+                elif (temp[i-1][0] == '-'):
                     temp[i-1] = temp[i-1].replace('-', '+')
                 else:
                     temp[i-1] = '-' + temp[i-1]
@@ -50,6 +51,18 @@ def expandVariable(text, parameters):
         newtemp = []
         for equation in temp[:]:
             for i in range(parameters[0], parameters[1]+1):
+                #can replace a single digit number in an equation with an index
+                # _i-n, with 0<=n<=9
+                try:
+                    minusIndex = equation.index("_i") + 2
+                    if equation[minusIndex] == '-':
+                        i = i - int(equation[minusIndex + 1])
+                        print("equation before: " + equation)
+                        equation = equation[:minusIndex] + equation[minusIndex+2:]
+                        print("equation after: " + equation)
+                                            
+                except IndexError:
+                    pass
                 newtemp.append(equation.replace('_i', str(i), 1))
         temp = newtemp
         parameters.pop(0)
@@ -68,9 +81,11 @@ def getequations(text, parameters):
         for j in range(0, len(tempList)):
             tempLine.append(tempList[j][i])
         output.append(" ".join(tempLine))
-    return "\n".join([lhs(i) for i in output])
+    print(len([lhs(i) for i in output]))
+    return "\r\n".join([lhs(i) for i in output])
     
 if __name__ == '__main__':
-    text = sys.argv[1]
+    '''text = sys.argv[1]
     parameters = [int(i) for i in sys.argv[2:]]
-    print(getequations(text, parameters))
+    print(getequations(text, parameters))'''
+    pass
