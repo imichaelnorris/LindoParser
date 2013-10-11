@@ -36,7 +36,7 @@ def lhs(line):
     return " ".join(temp)
 
 def expandVariable(text, parameters):
-    if (text in ['=', '<=', '>=', '>', '<']):
+    if (text in ['=', '<=', '>=', '>', '<']) or (len(set(text) - set(string.digits)) == 0):
         temp = [text]
         for i in range(0, len(parameters)//2):
             temp *= (parameters[2*i+1] - parameters[2*i] + 1)
@@ -63,6 +63,8 @@ def expandVariable(text, parameters):
                                             
                 except IndexError:
                     pass
+                except ValueError:
+                    pass
                 newtemp.append(equation.replace('_i', str(i), 1))
         temp = newtemp
         parameters.pop(0)
@@ -81,7 +83,7 @@ def getequations(text, parameters):
         for j in range(0, len(tempList)):
             tempLine.append(tempList[j][i])
         output.append(" ".join(tempLine))
-    print(len([lhs(i) for i in output]))
+
     return "\r\n".join([lhs(i) for i in output])
     
 if __name__ == '__main__':
