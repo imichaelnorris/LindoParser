@@ -49,8 +49,10 @@ def expandVariable(text, parameters):
         else:
             break
         newtemp = []
+        print(temp)
         for equation in temp[:]:
             for i in range(parameters[0], parameters[1]+1):
+                tempEquation = equation
                 #can replace a single digit number in an equation with an index
                 # _i-n, with 0<=n<=9
                 try:
@@ -58,14 +60,14 @@ def expandVariable(text, parameters):
                     if equation[minusIndex] == '-':
                         i = i - int(equation[minusIndex + 1])
                         print("equation before: " + equation)
-                        equation = equation[:minusIndex] + equation[minusIndex+2:]
+                        tempEquation = equation[:minusIndex] + equation[minusIndex+2:]
                         print("equation after: " + equation)
                                             
                 except IndexError:
                     pass
                 except ValueError:
                     pass
-                newtemp.append(equation.replace('_i', str(i), 1))
+                newtemp.append(tempEquation.replace('_i', str(i), 1))
         temp = newtemp
         parameters.pop(0)
         parameters.pop(0)
@@ -76,7 +78,7 @@ def getequations(text, parameters):
     tempList = []
     for i in temp:
         tempList.append(expandVariable(i, parameters[:]))
-    #print(tempList)
+    print(tempList)
     output = []
     for i in range(0, len(tempList[0])):
         tempLine = []
