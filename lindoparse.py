@@ -44,7 +44,7 @@ def expandVariable(text, parameters):
 
     temp = [text]
     while True:
-        if ('_' in temp[0]):
+        if ('_i' in temp[0]):
             pass
         else:
             break
